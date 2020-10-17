@@ -1,0 +1,10 @@
+<h1>Todolists</h1>
+<app-add-new-item-form (addItem)="addTodolist($event)"></app-add-new-item-form>
+
+<div style="display: flex">
+    <div *ngFor="let todo of todolists">
+        <app-todolist [todo]="todo"></app-todolist>
+    </div>
+</div>
+
+

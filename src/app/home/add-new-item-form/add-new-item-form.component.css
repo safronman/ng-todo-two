@@ -1,0 +1,10 @@
+.add-new-item-form {
+    display: flex;
+    align-items: center;
+}
+
+.add-new-item-form--input-field {
+    padding: 5px;
+    border: 2px solid grey;
+    margin: 10px;
+}

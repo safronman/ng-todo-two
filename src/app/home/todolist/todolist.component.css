@@ -1,0 +1,14 @@
+.todolist {
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 280px;
+    position: relative;
+}
+
+.del-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+}

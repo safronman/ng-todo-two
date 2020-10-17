@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    baseUrl: 'https://social-network.samuraijs.com/api/1.1',
+    apiKey: '8f2534e2-22a4-4052-894e-a66c04807482'
 };
 
 /*

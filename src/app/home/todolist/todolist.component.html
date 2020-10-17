@@ -1,0 +1,8 @@
+<div class="todolist">
+    <button class="del-btn" >x</button>
+    <h3>{{ todo.title }}</h3>
+    <app-add-new-item-form></app-add-new-item-form>
+    <div *ngFor="let task of tasks">
+        <app-task [task]="task"></app-task>
+    </div>
+</div>
