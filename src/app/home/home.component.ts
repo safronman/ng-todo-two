@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     todolists: Array<TodoType> = [];
     subscriptionGetTodo: Subscription;
     subscriptionCreateTodo: Subscription;
+    subscriptionDeleteTodo: Subscription;
 
     constructor(private todolistsService: TodolistsService) {
     }
@@ -39,8 +40,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             });
     }
 
+
+    deleteTodolist(todoId: string) {
+        this.subscriptionDeleteTodo = this.todolistsService.deleteTodo(todoId)
+            .subscribe((res) => {
+                this.todolists = this.todolists.filter(tl => tl.id !== todoId);
+            });
+    }
+
     ngOnDestroy(): void {
         this.subscriptionGetTodo.unsubscribe();
         this.subscriptionCreateTodo.unsubscribe();
+        this.subscriptionDeleteTodo.unsubscribe();
     }
 }

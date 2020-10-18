@@ -1,4 +1,9 @@
 <div class="add-new-item-form">
-    <input class="add-new-item-form--input-field" type="text" [(ngModel)]="title">
+    <input class="add-new-item-form--input-field"
+           type="text"
+           [ngClass]="{ 'add-new-item-form--empty-field': showEmptyInputError }"
+           [(ngModel)]="title"
+           (keyup.enter)="addItemHandler()"
+    >
     <button (click)="addItemHandler()">+</button>
 </div>

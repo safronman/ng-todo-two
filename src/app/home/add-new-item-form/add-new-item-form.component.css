@@ -8,3 +8,7 @@
     border: 2px solid grey;
     margin: 10px;
 }
+
+.add-new-item-form--empty-field {
+    border: 2px solid red;
+}

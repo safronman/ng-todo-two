@@ -3,7 +3,7 @@
 
 <div style="display: flex">
     <div *ngFor="let todo of todolists">
-        <app-todolist [todo]="todo"></app-todolist>
+        <app-todolist [todo]="todo" (deleteTodo)="deleteTodolist($event)"></app-todolist>
     </div>
 </div>
 

@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TodoType } from '../home.component';
+import { TodolistsService } from '../../shared/services/todolists.service';
+import { Subscription } from 'rxjs';
+import { TasksService } from '../../shared/services/tasks.service';
 
 export type TaskType = {
     description: string
@@ -20,43 +23,50 @@ export type TaskType = {
     templateUrl: './todolist.component.html',
     styleUrls: ['./todolist.component.css']
 })
-export class TodolistComponent implements OnInit {
+export class TodolistComponent implements OnInit, OnDestroy {
 
     @Input() todo: TodoType;
+    @Output() deleteTodo = new EventEmitter<string>();
 
-    tasks: Array<TaskType> = [
-        {
-            title: 'learn objects',
-            startDate: '17/10/20',
-            priority: 1,
-            description: 'bla bla bla',
-            deadline: '17/10/21',
-            id: '10',
-            todoListId: '1',
-            status: 0,
-            order: 1,
-            addedDate: '17/10/20',
-            completed: false
-        },
-        {
-            title: 'learn tags',
-            startDate: '17/10/20',
-            priority: 1,
-            description: 'bla bla bla',
-            deadline: '17/10/21',
-            id: '20',
-            todoListId: '2',
-            status: 0,
-            order: 1,
-            addedDate: '17/10/20',
-            completed: false
-        }
-    ];
+    tasks: Array<TaskType> = [];
+    editTitleMode = false;
 
-    constructor() {
+    subscriptionGetTasks: Subscription;
+
+    subscriptionChangeTodoTitle: Subscription;
+
+    constructor(
+        private todolistsService: TodolistsService,
+        private tasksService: TasksService,
+    ) {
     }
 
     ngOnInit(): void {
+        this.subscriptionGetTasks = this.tasksService.getTasks(this.todo.id)
+            .subscribe((res) => {
+                this.tasks = res.items;
+            });
     }
 
+    deleteTodoHandler(todoId: string) {
+        this.deleteTodo.emit(todoId);
+    }
+
+    activateEditMode() {
+        this.editTitleMode = true;
+    }
+
+    activateViewMode(todoId: string, title: string) {
+        this.subscriptionChangeTodoTitle = this.todolistsService.changeTodoTitle(todoId, title)
+            .subscribe((res) => {
+                if (res.resultCode === 0) {
+                    this.editTitleMode = false;
+                }
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptionChangeTodoTitle.unsubscribe();
+        this.subscriptionGetTasks.unsubscribe();
+    }
 }

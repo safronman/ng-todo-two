@@ -8,10 +8,17 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class AddNewItemFormComponent {
 
     title = '';
+    showEmptyInputError = false;
 
     @Output() addItem = new EventEmitter<string>();
 
     addItemHandler() {
-        this.addItem.emit(this.title);
+        if (this.title.trim()) {
+            this.showEmptyInputError = false;
+            this.addItem.emit(this.title);
+            this.title = '';
+        } else {
+            this.showEmptyInputError = true;
+        }
     }
 }
