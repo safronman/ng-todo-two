@@ -7,7 +7,6 @@ import { TasksService } from '../../shared/services/tasks.service';
 export type TaskType = {
     description: string
     title: string
-    completed: boolean
     status: number
     priority: number
     startDate: string
@@ -32,8 +31,9 @@ export class TodolistComponent implements OnInit, OnDestroy {
     editTitleMode = false;
 
     subscriptionGetTasks: Subscription;
-
     subscriptionChangeTodoTitle: Subscription;
+    subscriptionAddTask: Subscription;
+    subscriptionDelTask: Subscription;
 
     constructor(
         private todolistsService: TodolistsService,
@@ -65,8 +65,26 @@ export class TodolistComponent implements OnInit, OnDestroy {
             });
     }
 
+    addTask(title: string) {
+        this.subscriptionAddTask = this.tasksService.addTask(this.todo.id, title)
+            .subscribe((res) => {
+                this.tasks.unshift(res.data.item);
+            });
+    }
+
+    deleteTask(taskId: string) {
+        this.subscriptionDelTask = this.tasksService.deleteTask(taskId, this.todo.id)
+            .subscribe((res) => {
+                if (res.resultCode === 0) {
+                    this.tasks = this.tasks.filter(t => t.id !== taskId);
+                }
+            });
+    }
+
     ngOnDestroy(): void {
         this.subscriptionChangeTodoTitle.unsubscribe();
         this.subscriptionGetTasks.unsubscribe();
+        this.subscriptionAddTask.unsubscribe();
+        this.subscriptionDelTask.unsubscribe();
     }
 }

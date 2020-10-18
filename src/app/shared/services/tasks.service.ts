@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { TaskType } from '../../home/todolist/todolist.component';
+import { CommonResponseType } from './todolists.service';
 
 type TasksResponseType = {
     error: string | null
@@ -25,5 +26,14 @@ export class TasksService {
 
     getTasks(todoId: string) {
         return this.http.get<TasksResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }/tasks`, this.options);
+    }
+
+    addTask(todoId: string, title: string) {
+        return this.http.post<CommonResponseType<{item: TaskType}>>(`${ environment.baseUrl }/todo-lists/${ todoId }/tasks`,
+            {title}, this.options);
+    }
+
+    deleteTask(taskId: string, todoId: string) {
+        return this.http.delete<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }/tasks/${ taskId }`, this.options);
     }
 }

@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-type ResponseType<T = {}> = {
+export type CommonResponseType<T = {}> = {
     resultCode: number
     messages: Array<string>
     fieldsError: Array<string>
@@ -28,16 +28,16 @@ export class TodolistsService {
         return this.http.get<Array<TodoType>>(`${ environment.baseUrl }/todo-lists`, this.options);
     }
 
-    addTodo(title: string): Observable<ResponseType<{item: TodoType}>> {
-        return this.http.post<ResponseType<{item: TodoType}>>(`${ environment.baseUrl }/todo-lists`, {title}, this.options);
+    addTodo(title: string): Observable<CommonResponseType<{item: TodoType}>> {
+        return this.http.post<CommonResponseType<{item: TodoType}>>(`${ environment.baseUrl }/todo-lists`, {title}, this.options);
     }
 
-    deleteTodo(todoId: string): Observable<ResponseType> {
-        return this.http.delete<ResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }`, this.options);
+    deleteTodo(todoId: string): Observable<CommonResponseType> {
+        return this.http.delete<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }`, this.options);
     }
 
-    changeTodoTitle(todoId: string, title: string): Observable<ResponseType> {
-        return this.http.put<ResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }`, {title}, this.options);
+    changeTodoTitle(todoId: string, title: string): Observable<CommonResponseType> {
+        return this.http.put<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }`, {title}, this.options);
     }
 
 }

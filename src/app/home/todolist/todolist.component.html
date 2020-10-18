@@ -10,8 +10,8 @@
     </ng-template>
 
 
-    <app-add-new-item-form></app-add-new-item-form>
+    <app-add-new-item-form (addItem)="addTask($event)"></app-add-new-item-form>
     <div *ngFor="let task of tasks">
-        <app-task [task]="task"></app-task>
+        <app-task [task]="task" (deleteTask)="deleteTask($event)"></app-task>
     </div>
 </div>
