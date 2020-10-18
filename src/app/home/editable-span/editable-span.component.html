@@ -1,0 +1,7 @@
+<h3 (dblclick)="activateEditMode()" *ngIf="!editTitleMode; else showEditMode">{{ title }}</h3>
+<ng-template #showEditMode>
+    <input type="text"
+           [(ngModel)]="title"
+           (blur)="activateViewMode(title)"
+    >
+</ng-template>

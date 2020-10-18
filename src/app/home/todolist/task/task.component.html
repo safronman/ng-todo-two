@@ -1,4 +1,12 @@
 <div class="task">
-    <p>{{ task.title }}</p>
+    <div class="task__wrapper">
+        <input type="checkbox">
+        <app-editable-span [title]="task.title"
+                           [editTitleMode]="editTitleMode"
+                           (changeEditTitleMode)="changeEditTitleMode($event)"
+                           (changeTitle)="changeTaskTitle($event)"
+        >
+        </app-editable-span>
+    </div>
     <button (click)="deleteHandler(task.id)">x</button>
 </div>

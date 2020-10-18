@@ -31,9 +31,9 @@ export class TodolistComponent implements OnInit, OnDestroy {
     editTitleMode = false;
 
     subscriptionGetTasks: Subscription;
-    subscriptionChangeTodoTitle: Subscription;
     subscriptionAddTask: Subscription;
     subscriptionDelTask: Subscription;
+    subscriptionChangeTodoTitle: Subscription;
 
     constructor(
         private todolistsService: TodolistsService,
@@ -52,19 +52,6 @@ export class TodolistComponent implements OnInit, OnDestroy {
         this.deleteTodo.emit(todoId);
     }
 
-    activateEditMode() {
-        this.editTitleMode = true;
-    }
-
-    activateViewMode(todoId: string, title: string) {
-        this.subscriptionChangeTodoTitle = this.todolistsService.changeTodoTitle(todoId, title)
-            .subscribe((res) => {
-                if (res.resultCode === 0) {
-                    this.editTitleMode = false;
-                }
-            });
-    }
-
     addTask(title: string) {
         this.subscriptionAddTask = this.tasksService.addTask(this.todo.id, title)
             .subscribe((res) => {
@@ -81,10 +68,23 @@ export class TodolistComponent implements OnInit, OnDestroy {
             });
     }
 
+    changeTodoTitle(title: string) {
+        this.subscriptionChangeTodoTitle = this.todolistsService.changeTodoTitle(this.todo.id, title)
+            .subscribe((res) => {
+                this.editTitleMode = false;
+            });
+    }
+
+    changeEditTitleMode(editTitleMode: boolean) {
+        this.editTitleMode = editTitleMode;
+    }
+
     ngOnDestroy(): void {
-        this.subscriptionChangeTodoTitle.unsubscribe();
         this.subscriptionGetTasks.unsubscribe();
         this.subscriptionAddTask.unsubscribe();
         this.subscriptionDelTask.unsubscribe();
+        this.subscriptionChangeTodoTitle.unsubscribe();
     }
+
+
 }

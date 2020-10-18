@@ -9,6 +9,7 @@ import { TodolistComponent } from './home/todolist/todolist.component';
 import { TaskComponent } from './home/todolist/task/task.component';
 import { AddNewItemFormComponent } from './home/add-new-item-form/add-new-item-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditableSpanComponent } from './home/editable-span/editable-span.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
         TodolistComponent,
         TaskComponent,
         AddNewItemFormComponent,
+        EditableSpanComponent,
     ],
     imports: [
         BrowserModule,

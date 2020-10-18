@@ -1,15 +1,10 @@
 <div class="todolist">
-    <button (click)="deleteTodoHandler(todo.id)" class="del-btn" >x</button>
-
-    <h3 (dblclick)="activateEditMode()" *ngIf="!editTitleMode; else showEditMode">{{ todo.title }}</h3>
-    <ng-template #showEditMode>
-        <input type="text"
-               [(ngModel)]="todo.title"
-               (blur)="activateViewMode(todo.id, todo.title)"
-        >
-    </ng-template>
-
-
+    <button (click)="deleteTodoHandler(todo.id)" class="del-btn">x</button>
+    <app-editable-span [title]="todo.title"
+                       [editTitleMode]="editTitleMode"
+                       (changeEditTitleMode)="changeEditTitleMode($event)"
+                       (changeTitle)="changeTodoTitle($event)">
+    </app-editable-span>
     <app-add-new-item-form (addItem)="addTask($event)"></app-add-new-item-form>
     <div *ngFor="let task of tasks">
         <app-task [task]="task" (deleteTask)="deleteTask($event)"></app-task>

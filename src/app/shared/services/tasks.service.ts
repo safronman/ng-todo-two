@@ -36,4 +36,10 @@ export class TasksService {
     deleteTask(taskId: string, todoId: string) {
         return this.http.delete<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }/tasks/${ taskId }`, this.options);
     }
+
+    changeTaskTitle(title: string, task: TaskType) {
+        return this.http.put<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ task.todoListId }/tasks/${ task.id }`,
+            task, this.options);
+    }
+
 }
