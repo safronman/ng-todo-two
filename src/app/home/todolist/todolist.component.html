@@ -6,7 +6,13 @@
                        (changeTitle)="changeTodoTitle($event)">
     </app-editable-span>
     <app-add-new-item-form (addItem)="addTask($event)"></app-add-new-item-form>
-    <div *ngFor="let task of tasks">
+    <div *ngFor="let task of changeFilterValue(this.filterValue)">
         <app-task [task]="task" (deleteTask)="deleteTask($event)"></app-task>
     </div>
+    <hr>
+    <app-todo-footer
+        (changeFilterValueEmit)="changeFilterValue($event)"
+        [filterValue]="filterValue"
+        [addedDate]="todo.addedDate"
+    ></app-todo-footer>
 </div>

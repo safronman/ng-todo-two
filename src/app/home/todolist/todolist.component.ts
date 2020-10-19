@@ -17,6 +17,8 @@ export type TaskType = {
     addedDate: string
 };
 
+export type FilterType = 'all' | 'completed' | 'active';
+
 @Component({
     selector: 'app-todolist',
     templateUrl: './todolist.component.html',
@@ -29,6 +31,7 @@ export class TodolistComponent implements OnInit, OnDestroy {
 
     tasks: Array<TaskType> = [];
     editTitleMode = false;
+    filterValue: FilterType = 'all';
 
     subscriptionGetTasks: Subscription;
     subscriptionAddTask: Subscription;
@@ -79,12 +82,28 @@ export class TodolistComponent implements OnInit, OnDestroy {
         this.editTitleMode = editTitleMode;
     }
 
+
+    changeFilterValue(value: FilterType) {
+        this.filterValue = value;
+        switch (value) {
+            case 'all': {
+                return this.tasks;
+            }
+            case 'completed': {
+                return this.tasks.filter(t => t.status === 2);
+            }
+            case 'active': {
+                return this.tasks.filter(t => t.status === 0);
+            }
+        }
+    }
+
+
     ngOnDestroy(): void {
         this.subscriptionGetTasks.unsubscribe();
         this.subscriptionAddTask.unsubscribe();
         this.subscriptionDelTask.unsubscribe();
         this.subscriptionChangeTodoTitle.unsubscribe();
     }
-
 
 }

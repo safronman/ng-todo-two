@@ -10,6 +10,7 @@ import { TaskComponent } from './home/todolist/task/task.component';
 import { AddNewItemFormComponent } from './home/add-new-item-form/add-new-item-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditableSpanComponent } from './home/editable-span/editable-span.component';
+import { TodoFooterComponent } from './home/todolist/todo-footer/todo-footer.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { EditableSpanComponent } from './home/editable-span/editable-span.compon
         TaskComponent,
         AddNewItemFormComponent,
         EditableSpanComponent,
+        TodoFooterComponent,
     ],
     imports: [
         BrowserModule,

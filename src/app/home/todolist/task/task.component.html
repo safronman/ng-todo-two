@@ -1,6 +1,9 @@
 <div class="task">
     <div class="task__wrapper">
-        <input type="checkbox">
+        <input type="checkbox"
+               [checked]="task.status === 2"
+               (click)="changeTaskStatus($event)"
+        >
         <app-editable-span [title]="task.title"
                            [editTitleMode]="editTitleMode"
                            (changeEditTitleMode)="changeEditTitleMode($event)"

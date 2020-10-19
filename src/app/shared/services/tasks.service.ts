@@ -10,6 +10,24 @@ type TasksResponseType = {
     totalCount: number
 };
 
+export type UpdateTaskModelType = {
+    title: string
+    description: string
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+};
+
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: number
+    priority?: number
+    startDate?: string
+    deadline?: string
+};
+
 
 @Injectable({
     providedIn: 'root'
@@ -37,9 +55,9 @@ export class TasksService {
         return this.http.delete<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }/tasks/${ taskId }`, this.options);
     }
 
-    changeTaskTitle(title: string, task: TaskType) {
-        return this.http.put<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ task.todoListId }/tasks/${ task.id }`,
-            task, this.options);
+    changeTask(todoId: string, taskId: string, model: UpdateTaskModelType) {
+        return this.http.put<CommonResponseType>(`${ environment.baseUrl }/todo-lists/${ todoId }/tasks/${ taskId }`,
+            model, this.options);
     }
 
 }
