@@ -11,6 +11,7 @@ import { AddNewItemFormComponent } from './home/add-new-item-form/add-new-item-f
 import { HttpClientModule } from '@angular/common/http';
 import { EditableSpanComponent } from './home/editable-span/editable-span.component';
 import { TodoFooterComponent } from './home/todolist/todo-footer/todo-footer.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { TodoFooterComponent } from './home/todolist/todo-footer/todo-footer.com
     imports: [
         BrowserModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        AppRoutingModule
     ],
     providers: [],
     bootstrap: [AppComponent]
