@@ -1,0 +1,13 @@
+<div class="todo-footer">
+    <button [ngClass]="{'selected-btn': filterValue === 'all'}"
+            (click)="changeFilterValue('all')">All
+    </button>
+    <button [ngClass]="{'selected-btn': filterValue === 'completed'}"
+            (click)="changeFilterValue('completed')">Completed
+    </button>
+    <button [ngClass]="{'selected-btn': filterValue === 'active'}"
+            (click)="changeFilterValue('active')">Active
+    </button>
+</div>
+<hr>
+<p>{{ addedDate |date : 'short' }}</p>
