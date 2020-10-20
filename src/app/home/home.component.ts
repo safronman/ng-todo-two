@@ -14,18 +14,15 @@ export type TodoType = {
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
     todolists: Array<TodoType> = [];
-    subscriptionGetTodo: Subscription;
-    subscriptionCreateTodo: Subscription;
-    subscriptionDeleteTodo: Subscription;
 
     constructor(private todolistsService: TodolistsService) {
     }
 
     ngOnInit(): void {
-        this.subscriptionGetTodo = this.todolistsService.getTodos()
+        this.todolistsService.getTodos()
             .subscribe((res) => {
                     this.todolists = res;
                 }
@@ -33,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     addTodolist(title: string) {
-        this.subscriptionCreateTodo = this.todolistsService.addTodo(title)
+       this.todolistsService.addTodo(title)
             .subscribe((res) => {
                 const newTodo = res.data.item;
                 this.todolists.unshift(newTodo);
@@ -42,15 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
     deleteTodolist(todoId: string) {
-        this.subscriptionDeleteTodo = this.todolistsService.deleteTodo(todoId)
+        this.todolistsService.deleteTodo(todoId)
             .subscribe((res) => {
                 this.todolists = this.todolists.filter(tl => tl.id !== todoId);
             });
-    }
-
-    ngOnDestroy(): void {
-        this.subscriptionGetTodo.unsubscribe();
-        this.subscriptionCreateTodo.unsubscribe();
-        this.subscriptionDeleteTodo.unsubscribe();
     }
 }

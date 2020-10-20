@@ -24,7 +24,7 @@ export type FilterType = 'all' | 'completed' | 'active';
     templateUrl: './todolist.component.html',
     styleUrls: ['./todolist.component.css']
 })
-export class TodolistComponent implements OnInit, OnDestroy {
+export class TodolistComponent implements OnInit {
 
     @Input() todo: TodoType;
     @Output() deleteTodo = new EventEmitter<string>();
@@ -33,11 +33,6 @@ export class TodolistComponent implements OnInit, OnDestroy {
     editTitleMode = false;
     filterValue: FilterType = 'all';
 
-    subscriptionGetTasks: Subscription;
-    subscriptionAddTask: Subscription;
-    subscriptionDelTask: Subscription;
-    subscriptionChangeTodoTitle: Subscription;
-
     constructor(
         private todolistsService: TodolistsService,
         private tasksService: TasksService,
@@ -45,7 +40,7 @@ export class TodolistComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.subscriptionGetTasks = this.tasksService.getTasks(this.todo.id)
+        this.tasksService.getTasks(this.todo.id)
             .subscribe((res) => {
                 this.tasks = res.items;
             });
@@ -56,14 +51,14 @@ export class TodolistComponent implements OnInit, OnDestroy {
     }
 
     addTask(title: string) {
-        this.subscriptionAddTask = this.tasksService.addTask(this.todo.id, title)
+        this.tasksService.addTask(this.todo.id, title)
             .subscribe((res) => {
                 this.tasks.unshift(res.data.item);
             });
     }
 
     deleteTask(taskId: string) {
-        this.subscriptionDelTask = this.tasksService.deleteTask(taskId, this.todo.id)
+        this.tasksService.deleteTask(taskId, this.todo.id)
             .subscribe((res) => {
                 if (res.resultCode === 0) {
                     this.tasks = this.tasks.filter(t => t.id !== taskId);
@@ -72,7 +67,7 @@ export class TodolistComponent implements OnInit, OnDestroy {
     }
 
     changeTodoTitle(title: string) {
-        this.subscriptionChangeTodoTitle = this.todolistsService.changeTodoTitle(this.todo.id, title)
+       this.todolistsService.changeTodoTitle(this.todo.id, title)
             .subscribe((res) => {
                 this.editTitleMode = false;
             });
@@ -96,14 +91,6 @@ export class TodolistComponent implements OnInit, OnDestroy {
                 return this.tasks.filter(t => t.status === 0);
             }
         }
-    }
-
-
-    ngOnDestroy(): void {
-        this.subscriptionGetTasks.unsubscribe();
-        this.subscriptionAddTask.unsubscribe();
-        this.subscriptionDelTask.unsubscribe();
-        this.subscriptionChangeTodoTitle.unsubscribe();
     }
 
 }

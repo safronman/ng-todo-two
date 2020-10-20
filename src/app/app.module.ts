@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditableSpanComponent } from './home/editable-span/editable-span.component';
 import { TodoFooterComponent } from './home/todolist/todo-footer/todo-footer.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
         AddNewItemFormComponent,
         EditableSpanComponent,
         TodoFooterComponent,
+        PageNotFoundComponent,
+        MenuComponent,
     ],
     imports: [
         BrowserModule,
