@@ -1,4 +1,4 @@
-<div class="task">
+<div class="task" [routerLink]="['/task', task.id, task.todoListId]" >
     <div class="task__wrapper">
         <input type="checkbox"
                [checked]="task.status === 2"

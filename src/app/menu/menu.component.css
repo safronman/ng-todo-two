@@ -4,6 +4,13 @@
     list-style: none;
     display: flex;
     background-color: lightblue;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.menu__list {
+    list-style: none;
+    display: flex;
 }
 
 .menu__link {

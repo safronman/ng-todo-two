@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { TodolistComponent } from './home/todolist/todolist.component';
@@ -14,6 +14,7 @@ import { TodoFooterComponent } from './home/todolist/todo-footer/todo-footer.com
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MenuComponent } from './menu/menu.component';
+import { TaskPageComponent } from './task-page/task-page.component';
 
 @NgModule({
     declarations: [
@@ -27,12 +28,14 @@ import { MenuComponent } from './menu/menu.component';
         TodoFooterComponent,
         PageNotFoundComponent,
         MenuComponent,
+        TaskPageComponent,
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
